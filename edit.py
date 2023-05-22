@@ -62,7 +62,7 @@ class TitleblacklistExpiry:
 
         # check comment flag
         if re.search(r'(?:<|<.*?\|)\s*expirycomment\s*(?:\|[^|]*?)*?>', line_no_comment):
-            return '# ' + line.strip()
+            return ' # ' + line.strip()
 
         return None
 
