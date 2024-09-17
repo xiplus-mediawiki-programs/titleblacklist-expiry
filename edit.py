@@ -6,7 +6,7 @@ import os
 import re
 import sys
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 import dateutil.parser
 
@@ -57,7 +57,9 @@ class TitleblacklistExpiry:
             return line
 
         # not expiry
-        if expiry > datetime.utcnow():
+        now = datetime.now(timezone.utc).replace(tzinfo=None)
+        if expiry > now:
+            self.logger.info('%s: remaining %.1f days', line, (expiry - now).total_seconds() / 86400)
             return line
 
         # check comment flag
